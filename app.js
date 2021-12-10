@@ -1,23 +1,16 @@
-// Imports
+var express = require('express')
+var indexRouter = require("./routes/index.js");
 
-const express = require ('express')
-const app = express()
-const port = 8080
+var app = express()
+app.set('views','views')
+app.set('views engine', 'ejs')
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+app.use(express.static('public'))
 
+app.use('/', indexRouter)
 
-// listen on port 3000
+app.listen(3000, () => {
+    console.log('express is running on port 3000');
+});
 
-app.listen(port, () => console.info('listening on port  ${port}'))
-app.listen(3000, function () { console.log('Listening on port 3000!') })
-
-//static flie
-
-app.use(express.static('pubilc'))
-app.use('style', express.static(__dirname + 'pubilc/style'))
-app.use('img', express.static(__dirname + 'pubilc/img'))
-
-
-
-app.get('', (req, res) => {
-    res.render('index')
-})
